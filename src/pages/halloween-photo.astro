@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCldImageUrl } from "astro-cloudinary/helpers";
+import Heading from "../components/Heading.astro";
+
+const { searchParams } = Astro.url;
+const id = searchParams.get("id");
+const url = getCldImageUrl({
+  src: id,
+  replace: ["outfits", "scary costumes"],
+});
+---
+
+<Layout title="Your Photoween">
+  <main>
+    <Heading dropInAnimation={false} />
+    <img src={url} alt="" />
+  </main>
+</Layout>
