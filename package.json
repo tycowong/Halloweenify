@@ -16,6 +16,7 @@
     "astro": "^4.16.1",
     "astro-cloudinary": "^1.1.0",
     "fulldev-ui": "^0.4.28",
+    "halloweenify": "link:",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.3"
   }

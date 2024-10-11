@@ -9,6 +9,7 @@ import fulldev from "fulldev-ui/integration";
 // https://astro.build/config
 export default defineConfig({
   output: "server",
+  adapter: vercel(),
   integrations: [
     tailwind(),
     fulldev({
@@ -27,5 +28,4 @@ export default defineConfig({
       },
     }),
   ],
-  adapter: vercel(),
 });
