@@ -1,17 +1,7 @@
 ---
-interface Props {
-  dropInAnimation?: boolean;
-}
 
-const { dropInAnimation } = Astro.props;
-
-const headdingClass = "text-6xl sm:text-8xl";
-
-if (dropInAnimation) {
-  headdingClass.concat(" animate-fadeDrop");
-}
 ---
 
 <div class="mt-5">
-  <h1 class={headdingClass}>Halloweenify</h1>
+  <h1 {...Astro.props}>Halloweenify</h1>
 </div>

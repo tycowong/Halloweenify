@@ -1,0 +1,72 @@
+---
+import PumpkinIcon from "../icons/PumpkinIcon.astro";
+---
+
+<div class="whole">
+  <div>
+    <div class="loading">
+      <span> <PumpkinIcon class="size-10 fill-orange-400" /> </span>
+      <span> <PumpkinIcon class="size-10 fill-orange-400" /></span>
+      <span> <PumpkinIcon class="size-10 fill-orange-400" /></span>
+      <span> <PumpkinIcon class="size-10 fill-orange-400" /></span>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  img {
+    padding-right: 12px;
+  }
+
+  .whole {
+    height: fit-content;
+  }
+
+  .whole div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    align-self: center;
+  }
+
+  .whole div:nth-child(1) {
+    display: inline-flex;
+  }
+
+  .whole div:nth-child(2) {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loading span {
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+    border-radius: 50%;
+    display: inline-block;
+    animation-name: dots;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .loading span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .loading span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .loading span:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes dots {
+    50% {
+      opacity: 0;
+      transform: scale(0.7) translateY(10px);
+    }
+  }
+</style>
