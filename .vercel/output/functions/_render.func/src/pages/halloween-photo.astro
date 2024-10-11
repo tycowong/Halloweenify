@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCldImageUrl } from "astro-cloudinary/helpers";
+import Heading from "../components/Heading.astro";
+import { getCollection } from "astro:content";
+import JumpingPumpkins from "../components/JumpingPumpkins.astro";
+
+const { searchParams } = Astro.url;
+const id = searchParams.get("id");
+const sel = searchParams.get("sel");
+const PROPS = await getCollection("props");
+var aiProp = "";
+var aiReplace = "";
+
+PROPS.map((prop: { slug: any; data: any }) => {
+  const { slug, data } = prop;
+  const { name, imgUrl, alt, prompt, replace } = data;
+
+  if (sel === slug) {
+    aiProp = prompt;
+    aiReplace = replace;
+  }
+});
+
+const url = getCldImageUrl({
+  src: id,
+  replace: [`${aiReplace}`, `${aiProp}`],
+  saturation: "30",
+  contrast: "-50",
+  brightness: "-10",
+  blur: "20",
+  sharpen: "-100",
+  vibrance: "-30",
+  fillLight: "20:30",
+});
+
+while (!url) {
+  console.log("atest");
+}
+---
+
+<Layout title="Your Photoween">
+  <main>
+    <Heading class="text-6xl sm:text-8xl" />
+    <section class="flex flex-col justify-center gap-5">
+      <div
+        id="waiting"
+        class="flex justify-center items-center md:w-full md:h-96"
+      >
+        <div class="flex flex-col gap-5 justify-center items-center">
+          <h2>Processing</h2>
+          <JumpingPumpkins />
+        </div>
+      </div>
+      <img id="transformedImage" src={url} alt="" />
+      <button id="download" class="hidden"> Downlaod </button>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const transformedImage = document.getElementById("transformedImage");
+  const url = transformedImage.getAttribute("src");
+  const downloadButton = document.getElementById("download");
+
+  transformedImage.addEventListener("load", () => {
+    const waiting = document.getElementById("waiting");
+    waiting.style.display = "none";
+  });
+
+  downloadButton.addEventListener("click", async () => {
+    try {
+      const response = await fetch(url);
+      const file = await response.blob();
+      const imageUrl = URL.createObjectURL(file);
+
+      const link = document.createElement("a");
+      link.href = imageUrl;
+      link.download = "Your_scary_image";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {}
+  });
+</script>
