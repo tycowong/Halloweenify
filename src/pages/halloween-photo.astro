@@ -4,6 +4,7 @@ import { getCldImageUrl } from "astro-cloudinary/helpers";
 import Heading from "../components/Heading.astro";
 import { getCollection } from "astro:content";
 import JumpingPumpkins from "../components/JumpingPumpkins.astro";
+import Button from "../components/Button.astro";
 
 const { searchParams } = Astro.url;
 const id = searchParams.get("id");
@@ -53,7 +54,7 @@ while (!url) {
         </div>
       </div>
       <img id="transformedImage" src={url} alt="" />
-      <button id="download" class="hidden"> Downlaod </button>
+      <Button id="download" tailProp="hidden"> Downlaod </Button>
     </section>
   </main>
 </Layout>
@@ -66,6 +67,7 @@ while (!url) {
   transformedImage.addEventListener("load", () => {
     const waiting = document.getElementById("waiting");
     waiting.style.display = "none";
+    document.getElementById("download").style.display = "block";
   });
 
   downloadButton.addEventListener("click", async () => {
